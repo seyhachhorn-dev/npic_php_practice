@@ -19,12 +19,12 @@ function registerUser ($name, $username, $password){
 function isUsernameExists($username){
     global $db;
 
-    $query = $db->prepare("SELECT id FROM tbl_users WHERE username = ?");
+    $query = $db->prepare("SELECT user_id FROM tbl_users WHERE username = ?");
     $query -> bind_param("s",$username);
     $query -> execute();
     $rs = $query -> get_result();
 
-    if($rs -> num_rows >0){
+    if($rs -> num_rows){
         return true;
     } else {
         return false;

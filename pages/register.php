@@ -29,8 +29,14 @@ if(isset($_POST['name'],$_POST['username'],$_POST['password'],$_POST['confirmPas
         $errPassword = "Password does not match";
     }
 
+    if(isUsernameExists($username)){
+        $errUsername = "Username already exists";
+    }
+
     if(empty($errName) && empty($errUsername) && empty($errPassword)){
-       registerUser($name, $username, $password);
+       if(registerUser($name, $username, $password)){
+        $username = $name = $password = $confirmPassword = "";
+       }
     }
 }
 
