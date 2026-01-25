@@ -2,8 +2,9 @@
 
 // register user function
 function registerUser ($name, $username, $password){
-    global $db;
 
+    global $db;
+    isUsernameExists($username);
     $query = $db->prepare("INSERT INTO tbl_users(name, username, password) VALUES (?, ?, ?)");
     $query -> bind_param("sss",$name, $username, $password);
     $query -> execute();
