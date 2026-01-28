@@ -21,13 +21,13 @@ function registerUser ($name, $username, $password){
 
 function loginUser ($username, $password){
     global $db;
-    $query = $db->prepare("SELECT * FROM tbl_uers where username = ? AND password = ?");
+    $query = $db->prepare("SELECT * FROM tbl_users where username = ? AND password = ?");
     $query -> bind_param("ss",$username, $password);
     $query -> execute();
     $rs = $query -> get_result();
 
     if($rs -> num_rows){
-        return true;
+        return $rs -> fetch_object();
     } else {
         return false;
     }
