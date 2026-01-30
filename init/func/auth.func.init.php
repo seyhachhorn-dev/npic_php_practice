@@ -76,4 +76,22 @@ function isUsernameExists($username){
     }
 }
 
+
+function isUserLogged(){
+    global $db;
+
+    if(!isset($_SESSION['user_id'])){
+        return null;
+    }
+    $user_id = $_SESSION['user_id'];
+    $query = $db->prepare("SELECT * FROM tbl_users WHERE user_id = ?");
+    $query -> bind_param('i',$user_id);
+    $query -> execute();
+    $rs = $query -> get_result();
+    if($rs -> num_rows){
+        return $rs->fetch_object();
+    }else{return null;}
+
+}
+
 ?>
