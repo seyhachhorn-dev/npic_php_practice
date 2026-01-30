@@ -14,10 +14,10 @@ if(isset($_POST['username'], $_POST['password'])){
     if(empty($password)){
         $errPassword = "Password is required";
     }
-}
 
 
-if(empty($errUsername) && empty ($errPassword)){
+
+    if(empty($errUsername) && empty ($errPassword)){
     $user = loginUser($username, $password);
     if($user !== false){
         header("Location: ./?page=dashboard");
@@ -28,6 +28,10 @@ if(empty($errUsername) && empty ($errPassword)){
 </div>';
     }
 }
+}
+
+
+
 
 
 
@@ -58,3 +62,36 @@ if(empty($errUsername) && empty ($errPassword)){
         </div>
     </div>
 </section>
+
+<!-- $username = $password = "";
+$errUsername = $errPassword = "";
+
+if (isset($_POST['username'], $_POST['password'])) {
+
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
+    if (empty($username)) {
+        $errUsername = "Username is required";
+    }
+
+    if (empty($password)) {
+        $errPassword = "Password is required";
+    }
+
+    // ONLY attempt login after validation
+    if (empty($errUsername) && empty($errPassword)) {
+
+        $user = loginUser($username, $password);
+
+        if ($user !== false) {
+            header("Location: ./?page=dashboard");
+            exit();
+        } else {
+            echo '<div class="alert alert-danger" role="alert">
+                Something went wrong. Please try again.
+                or Go to Register <a href="./?page=register">Register</a>
+            </div>';
+        }
+    }
+} -->
