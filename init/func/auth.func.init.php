@@ -94,4 +94,27 @@ function isUserLogged(){
 
 }
 
+// update and select
+
+function updatedUserAndDiplay($username, $password, $userID){
+    global $db;
+    $update = $db->prepare("UPDATE tbl_users SET username = ?, SET password = ? where user_id = ?");
+    $update -> bind_param("s",$username, $password, $userID);
+    if($update -> execute()){
+
+    $select = $db->prepare("SELECT * from tbl_users where user_id = ?");
+    $select -> bind_param("i",$userID);
+    $select -> execute();
+    $rs = $select -> get_result();
+    if($rs -> num_rows){
+        return $rs -> fetch_object();
+    }else{
+        return null;
+    }
+
+    }else{
+        return false;
+    }
+}
+
 ?>
