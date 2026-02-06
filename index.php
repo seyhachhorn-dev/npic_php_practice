@@ -7,7 +7,7 @@ include './includes/navbar.php';
 // unset($_SESSION['user_id']);
 
 
-$avaliable_pages = ['register', 'login', 'home', 'dashboard','logout'];
+$avaliable_pages = ['register', 'login', 'home', 'dashboard','logout','profile'];
 $logged_in_pages = ['dashboard'];
 $non_logged_pages = ['login', 'register'];
 
