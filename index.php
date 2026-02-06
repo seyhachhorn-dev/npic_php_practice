@@ -1,12 +1,13 @@
 <?php
 require_once './init/init.php';
+$user = isUserLogged();
 include './includes/header.php';
 include './includes/navbar.php';
 
 // unset($_SESSION['user_id']);
-$user = isUserLogged();
 
-$avaliable_pages = ['register', 'login', 'home', 'dashboard'];
+
+$avaliable_pages = ['register', 'login', 'home', 'dashboard','logout'];
 $logged_in_pages = ['dashboard'];
 $non_logged_pages = ['login', 'register'];
 

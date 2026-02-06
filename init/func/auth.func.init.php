@@ -33,6 +33,7 @@ function loginUser ($username, $password){
     }
 }
 
+// delete user
 function deleteUser ($userID){
     global $db;
     
@@ -46,6 +47,7 @@ function deleteUser ($userID){
     }
 }
 
+// update user
 function updateUer ($userID, $name, $username,$password){
     global $db;
 
@@ -60,7 +62,6 @@ function updateUer ($userID, $name, $username,$password){
 }
 
 // validate useranme
-
 function isUsernameExists($username){
     global $db;
 
@@ -76,7 +77,7 @@ function isUsernameExists($username){
     }
 }
 
-
+// isLogin check
 function isUserLogged(){
     global $db;
 
@@ -95,7 +96,6 @@ function isUserLogged(){
 }
 
 // update and select
-
 function updatedUserAndDiplay($username, $password, $userID){
     global $db;
     $update = $db->prepare("UPDATE tbl_users SET username = ?, SET password = ? where user_id = ?");

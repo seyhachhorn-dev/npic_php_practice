@@ -37,12 +37,12 @@ if (isset($_POST['name'], $_POST['username'], $_POST['password'], $_POST['confir
         if (registerUser($name, $username, $password)) {
             $username = $name = $password = $confirmPassword = "";
             echo '<div class="alert alert-success" role="alert">
-  Create Account Successfully! .Go to <a href="./?page=login">Login</a>
-</div>';
+                 Create Account Successfully! .Go to <a href="./?page=login">Login</a>
+                 </div>';
         } else {
             echo '<div class="alert alert-danger" role="alert">
-    Something went wrong. Please try again. or Go to Login <a href="./?page=login">Login</a>
-</div>';
+               Something went wrong. Please try again. or Go to Login <a href="./?page=login">Login</a>
+                 </div>';
         }
     }
 }
@@ -70,7 +70,6 @@ if (isset($_POST['name'], $_POST['username'], $_POST['password'], $_POST['confir
                     <input type="text" value="<?php echo $username ?>" name="username" class="form-control <?php echo !empty($errUsername) ? 'is-invalid' : '' ?>" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <span class="invalid-feedback"> <?php echo $errUsername ?></span>
                 </div>
-
 
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Password</label>

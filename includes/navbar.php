@@ -1,4 +1,5 @@
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand brand-name" href="<?php echo "/npic-practice/?page=home" ?>">한국드라마</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,14 +17,23 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Auth
               </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/npic-practice/?page=login">Login</a></li>
-                <li><a class="dropdown-item" href="/npic-practice/?page=register">Register</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <!-- <li><a class="dropdown-item" href="/pages/asd.php">Something else here</a></li> -->
-              </ul>
+                   <ul class="dropdown-menu">
+             <?php if (empty($user)) { ?>
+               <li><a class="dropdown-item"
+                   href="/npic-practice/?page=login">Login</a></li>
+               <li>
+                 <hr class="dropdown-divider">
+               </li>
+               <li><a class="dropdown-item"
+                   href="/npic-practice/?page=register">Register</a></li>
+             <?php } else { ?>
+               <li><a class="dropdown-item"
+                   href="/npic-practice/?page=logout">Logout</a></li>
+             <?php } ?>
+            
+             <!-- <li><a class="dropdown-item" href="/pages/asd.php">Something else here</a></li> -->
+           </ul>
+
             </li>
           </ul>
           <form class="d-flex" role="search">
