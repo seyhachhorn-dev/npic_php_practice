@@ -1,9 +1,9 @@
 <?php 
 
-$oldPassword = "";
-$newPassword = "";
+$oldPassword = $newPassword = $confirmPassword ="";
+$errNewPassword = $errOldPassword = "";
 
-if(isset($_POST['changPassword'],$_POST["oldPassword"],$_POST["Newpassword"],$_POST["confirmNewPassword"])){
+if(isset($_POST['changPassword'],$_POST["oldPassword"],$_POST["newPassword"],$_POST["confirmNewPassword"])){
     $oldPassword = trim($_POST["oldPassword"]);
     $newPassword = trim($_POST["newPassword"]);
     $confirmPassword = trim($_POST["confirmNewPassword"]);
@@ -21,14 +21,10 @@ if(isset($_POST['changPassword'],$_POST["oldPassword"],$_POST["Newpassword"],$_P
 }
 
 
-
-
-
 ?>
 <div class="row">
     <div class="col-6"><h1>Img</h1></div>
     <div class="col-6">
-
 
     <section class="container mt-5">
     <div class="row justify-content-center">
@@ -46,7 +42,7 @@ if(isset($_POST['changPassword'],$_POST["oldPassword"],$_POST["Newpassword"],$_P
 
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">New Password</label>
-                    <input type="password" value="" name="Newpassword" class="form-control <?php echo !empty($errNewPassword) ? 'is-invalid' : '' ?>" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="password" value="" name="newPassword" class="form-control <?php echo !empty($errNewPassword) ? 'is-invalid' : '' ?>" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <span class="invalid-feedback"><?php echo $errNewPassword ?></span>
                 </div>
 
