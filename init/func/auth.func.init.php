@@ -155,3 +155,8 @@ function setNewPassword($password)
         return false;
     }
 }
+
+function isAdmin(){
+    $user = isUserLogged();
+    return $user && $user->level === 'admin';
+}
