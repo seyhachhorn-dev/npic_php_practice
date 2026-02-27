@@ -165,11 +165,11 @@ function isAdmin()
 function deleteImageProfile() {
     global $db;
     $user = isUserLogged();
-    if ($user && $user->photo && file_exists($user->photo)) {
+if ($user && !empty(trim($user->photo)) && file_exists($user->photo)) {
         unlink($user->photo);
     }
 
-    $query = $db->prepare('UPDATE tbl_users SET photo = NULL where user_id = ?');
+    $query = $db->prepare('UPDATE tbl_users SET photo =NULL where user_id = ?');
     $query->bind_param("i", $user->user_id);
     return $query->execute(); 
 }

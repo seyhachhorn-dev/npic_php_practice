@@ -72,11 +72,20 @@ if (isset($_POST['deletePhoto'])) {
             <div class="d-flex justify-content-center">
                 <input name="photo" type="file" id="profileUpload" hidden>
                 <label role="button" for="profileUpload">
-                    <img src="<?= (!empty(isUserLogged()->photo)) ? isUserLogged()->photo : './assets/images/emptyuser.png' ?>"
+                    <img src="
+                     <?php
+
+                        if (!empty(trim(isUserLogged()->photo))) {
+                            echo isUserLogged()->photo;
+                        } else {
+                            echo './assets/images/emptyuser.png';
+                        }
+
+                        ?>"
                         class="rounded img-thumbnail"
                         style="width:200px; height:200px; object-fit: cover;">
             </div>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center gap-2 mt-2">
                 <button type="submit" name="deletePhoto" class="btn btn-danger">Delete</button>
                 <button type="submit" name="uploadPhoto" class="btn btn-success">Upload</button>
             </div>
