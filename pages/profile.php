@@ -18,31 +18,63 @@ if (isset($_POST['changPassword'], $_POST["oldPassword"], $_POST["newPassword"],
         $errNewPassword = "Password not Much!";
     }
 
-    if(!IsUserPasswordCorrect($oldPassword)){
-          $oldPasswdErr = 'password or username is incorrect';
+    if (!IsUserPasswordCorrect($oldPassword)) {
+        $oldPasswdErr = 'password or username is incorrect';
     }
 
-    if(empty($errNewPassword) && empty($errOldPassword)){
-        if(setNewPassword($newPassword)){
+    if (empty($errNewPassword) && empty($errOldPassword)) {
+        if (setNewPassword($newPassword)) {
             header('Location: ./?page=logout');
-        }else{
-              echo '<div class="alert alert-danger" role="alert">
+        } else {
+            echo '<div class="alert alert-danger" role="alert">
                 try aggain.
                 </div>';
         }
     }
 }
 
+if (isset($_POST['uploadPhoto']) && isset($_FILES['photo'])) {
+    $photo = $_FILES['photo'];
+    if (empty($photo)) {
+        echo '<div class="alert alert-danger" role="alert">
+                Please select a photo.
+                </div>';
+    } else {
+        try {
+
+            if (changeProfileImage($photo)) {
+                echo '<div class="alert alert-success" role="alert">
+                Photo uploaded successfully.
+                </div>';
+            } else {
+                echo '<div class="alert alert-danger" role="alert">
+                Failed to upload photo.
+                </div>';
+            }
+        } catch (Exception $e) {
+            echo '<div class="alert alert-danger" role="alert"> 
+                ' . $e->getMessage() . '
+                </div>';
+        }
+    }
+}
+
+if (isset($_POST['deletePhoto'])) {
+    deleteImageProfile();
+    header("Location: ./?page=profile");
+}
+
 
 ?>
 <div class="row">
     <div class="col-6">
-        <form method="post" action="./?page=profile">
+        <form method="post" action="./?page=profile" enctype="multipart/form-data">
             <div class="d-flex justify-content-center">
                 <input name="photo" type="file" id="profileUpload" hidden>
                 <label role="button" for="profileUpload">
-                    <img src="./assets/images/emptyuser.png" class="rounded">
-                </label>
+                    <img src="<?= (!empty(isUserLogged()->photo)) ? isUserLogged()->photo : './assets/images/emptyuser.png' ?>"
+                        class="rounded img-thumbnail"
+                        style="width:200px; height:200px; object-fit: cover;">
             </div>
             <div class="d-flex justify-content-center">
                 <button type="submit" name="deletePhoto" class="btn btn-danger">Delete</button>

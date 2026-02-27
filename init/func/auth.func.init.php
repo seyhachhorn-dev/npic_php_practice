@@ -147,7 +147,7 @@ function setNewPassword($password)
     global $db;
     $user = isUserLogged();
     $query = $db->prepare("UPDATE tbl_users Set password = ? where user_id = ?");
-    $query->bind_param("ss", $password ,$user->user_id);
+    $query->bind_param("ss", $password, $user->user_id);
     $query->execute();
     if ($db->affected_rows) {
         return true;
@@ -156,7 +156,70 @@ function setNewPassword($password)
     }
 }
 
-function isAdmin(){
+function isAdmin()
+{
     $user = isUserLogged();
     return $user && $user->level === 'admin';
+}
+
+function deleteImageProfile() {
+    global $db;
+    $user = isUserLogged();
+    if ($user && $user->photo && file_exists($user->photo)) {
+        unlink($user->photo);
+    }
+
+    $query = $db->prepare('UPDATE tbl_users SET photo = NULL where user_id = ?');
+    $query->bind_param("i", $user->user_id);
+    return $query->execute(); 
+}
+
+function changeProfileImage($image)
+{
+    global $db;
+    $user = isUserLogged();
+    $image_path = uploadImage($image);
+    if ($image_path && $user->photo) {
+        unlink($user->photo);
+    }
+    $query = $db->prepare('UPDATE tbl_users SET photo =? where user_id = ?');
+    $query->bind_param("si", $image_path, $user->user_id);
+    $query->execute();
+    if ($db->affected_rows) {
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function uploadImage($image)
+{
+    $img_name = $image['name'];
+    $img_size = $image['size'];
+    $tmp_name = $image['tmp_name'];
+    $err = $image['error'];
+
+    $dir = "./assets/images/";
+
+    $allow_extension = ['jpg', 'jpeg', 'png'];
+    $img_extension = pathinfo($img_name, PATHINFO_EXTENSION);
+    $image_lower_ext = strtolower($img_extension);
+    if (!in_array($image_lower_ext, $allow_extension)) {
+        throw new Exception('Invalid image extension');
+    }
+
+    if ($err !== 0) {
+        throw new Exception('Unknow error ocurred');
+    }
+
+    if ($img_size > 5000000) {
+        throw new Exception('Image size is too large');
+    }
+
+    $new_img_name = uniqid("PI-") . "." . $img_extension;
+    $img_path = $dir . $new_img_name;
+    move_uploaded_file($tmp_name, $img_path);
+    return $img_path;
 }
