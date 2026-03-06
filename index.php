@@ -7,9 +7,10 @@ include './includes/navbar.php';
 // unset($_SESSION['user_id']);
 
 
-$avaliable_pages = ['register', 'login', 'home', 'dashboard','logout','profile'];
+$avaliable_pages = ['register', 'login', 'home', 'dashboard','logout','profile','user/userlist','user/createuser'];
 $logged_in_pages = ['dashboard'];
 $non_logged_pages = ['login', 'register'];
+$admin_pages = ['user/userlist','user/createuser'];
 
 $page = '';
 
@@ -23,6 +24,11 @@ if (in_array($page, $non_logged_pages) && !empty($user)) {
     header('Location: ./?page=dashboard');
 }
 if (in_array($page, $avaliable_pages)) {
+
+    if(in_array($page,$admin_pages) && !isAdmin()){
+        header('Location: ./?page=dashboard');
+        exit();
+    }
    include './pages/'. $page . '.php';
 } else {
     header('Location: ./?page=login');

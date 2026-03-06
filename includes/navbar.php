@@ -12,6 +12,11 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Advanture</a>
         </li>
+        <?php if (!empty($user) && isAdmin()) { ?>
+          <li class="nav-item"><a class="nav-link"
+              href="<?php echo $baseUrl ?>?page=user/userlist">User List</a></li>
+        <?php } ?>
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Auth
@@ -30,13 +35,17 @@
                   href="<?php echo $baseUrl ?>?page=profile">Prfile</a></li>
               <li><a class="dropdown-item"
                   href="<?php echo $baseUrl ?>?page=logout">Logout</a></li>
+
             <?php } ?>
+
             <!-- <li><a class="dropdown-item" href="/pages/asd.php">Something else here</a></li> -->
           </ul>
 
         </li>
       </ul>
+
       <?php if (!empty($user)) { ?>
+      
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
           <button class="btn btn-outline-success" type="submit">Search</button>
