@@ -1,6 +1,6 @@
 <?php
 
-echo isAdmin() ? "I'm admin" : "I'm just user";
+// echo isAdmin() ? "I'm admin" : "I'm just user";
 
 
 ?>

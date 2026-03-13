@@ -17,5 +17,13 @@ function createUser($name, $username, $password, $photo){
 }
 
 
+function getAllUsersNotAdmin(){
+    global $db;
+    $query = $db->prepare('SELECT * FROM tbl_users WHERE level <> "admin"');
+    $query -> execute();
+    $result = $query->get_result();
+    return $result;
+}
+
 
 ?>
