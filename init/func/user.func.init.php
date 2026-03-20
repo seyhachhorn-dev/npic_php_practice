@@ -25,5 +25,66 @@ function getAllUsersNotAdmin(){
     return $result;
 }
 
+// delete user
+function deleteUser($userID)
+{
+    global $db;
+
+    $query = $db->prepare("DELETE FROM tbl_users where user_id = ?");
+    $query->bind_param("i", $userID);
+    $query->execute();
+    if ($db->affected_rows) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function readUser($userID){
+    global $db;
+      $query = $db->prepare("SELECT * FROM tbl_users where user_id = ?");
+    $query->bind_param("i", $userID);
+    $query->execute();
+     $result = $query->get_result();
+     if($result -> num_rows){
+        return $result->fetch_object();
+     }
+     return null;
+
+}
+
+
+
+// update users
+function updateUser($id, $name, $username, $passwd, $photo){
+    global $db;
+    $targetUser = readUser($id);
+
+    if(empty($passwd)){
+        $passwd -> $targetUser->password;
+    }
+
+    $img_path = null;
+
+    if(!empty($photo['name'])){
+        $img_path = uploadImage($photo);
+    }
+    if($img_path){
+             $query = $db->prepare('UPDATE tbl_users SET name=?, username=?, password=?, photo=? WHERE user_id=?');
+            $query->bind_param('ssssi', $name, $username, $passwd, $image_path, $id);
+    }else {
+        $query = $db->prepare('UPDATE tbl_users SET name=?, username=?, password=? WHERE user_id=?');
+        $query->bind_param('sssi', $name, $username, $passwd, $id);
+    }
+
+     $query->execute();
+    if ($db->affected_rows) {
+        return true;
+    }
+    return false;
+
+}
+
+
 
 ?>

@@ -35,20 +35,7 @@ function loginUser($username, $password)
     }
 }
 
-// delete user
-function deleteUser($userID)
-{
-    global $db;
 
-    $query = $db->prepare("DELETE FROM tbl_users where user_id = ?");
-    $query->bind_param("i", $userID);
-    $query->execute();
-    if ($query->affected_rows > 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 // update user
 function updateUer($userID, $name, $username, $password)
