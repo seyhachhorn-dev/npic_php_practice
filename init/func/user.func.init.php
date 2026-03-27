@@ -25,20 +25,7 @@ function getAllUsersNotAdmin(){
     return $result;
 }
 
-// delete user
-function deleteUser($userID)
-{
-    global $db;
 
-    $query = $db->prepare("DELETE FROM tbl_users where user_id = ?");
-    $query->bind_param("i", $userID);
-    $query->execute();
-    if ($db->affected_rows) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 function readUser($userID){
     global $db;
@@ -54,14 +41,38 @@ function readUser($userID){
 }
 
 
+// delete user
+function deleteUser($userID)
+{
+    global $db;
+
+    $targetUser = readUser($userID);
+
+    if($targetUser->photo){
+        unlink($targetUser->photo);
+    }
+
+    $query = $db->prepare("DELETE FROM tbl_users where user_id = ?");
+    $query->bind_param("i", $userID);
+    $query->execute();
+    if ($db->affected_rows) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 
 // update users
 function updateUser($id, $name, $username, $passwd, $photo){
     global $db;
     $targetUser = readUser($id);
 
-    if(empty($passwd)){
-        $passwd -> $targetUser->password;
+
+       // Fix password
+    if (empty($passwd)) {
+        $passwd = $targetUser->password;
     }
 
     $img_path = null;
@@ -71,7 +82,7 @@ function updateUser($id, $name, $username, $passwd, $photo){
     }
     if($img_path){
              $query = $db->prepare('UPDATE tbl_users SET name=?, username=?, password=?, photo=? WHERE user_id=?');
-            $query->bind_param('ssssi', $name, $username, $passwd, $image_path, $id);
+            $query->bind_param('ssssi', $name, $username, $passwd, $img_path, $id);
     }else {
         $query = $db->prepare('UPDATE tbl_users SET name=?, username=?, password=? WHERE user_id=?');
         $query->bind_param('sssi', $name, $username, $passwd, $id);

@@ -28,9 +28,11 @@ if (isset($_POST['name'], $_POST['username'], $_POST['passwd'], $_FILES['photo']
                 $targetUser = readUser($id);
                 $name = $targetUser->name;
                 $username = $targetUser->username;
+                
                 echo '<div class="alert alert-success" role="alert">
                 Create success.
                 </div>';
+                
             }
         } catch (Exception $e) {
             echo '<div class="alert alert-danger" role="alert">
@@ -71,5 +73,5 @@ if (isset($_POST['name'], $_POST['username'], $_POST['passwd'], $_FILES['photo']
         <label class="form-label">Password</label>
         <input name="passwd" type="password" class="form-control">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit"  class="btn btn-primary">Submit</button>
 </form>

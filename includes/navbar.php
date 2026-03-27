@@ -14,7 +14,7 @@
         </li>
         <?php if (!empty($user) && isAdmin()) { ?>
           <li class="nav-item"><a class="nav-link"
-              href="<?php echo $baseUrl ?>?page=user/userlist">User List</a></li>
+              href="<?php echo $baseUrl ?>?page=user/userlist">User List <i class="bi bi-person-fill-add"></i></a></li>
         <?php } ?>
         
         <li class="nav-item dropdown">

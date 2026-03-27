@@ -32,8 +32,8 @@
 
                     <td><?php echo $row->name ?></td>
                     <td>
-                        <a href="./?page=user/update&id=<?php echo $row -> user_id ?>" class="btn btn-success">Update</a>
-                        <a href="./?page=user/delete&id=<?php echo $row -> user_id ?>" class="btn btn-danger">Delete</a>
+                        <a href="./?page=user/update&id=<?php echo $row -> user_id ?>" class="btn btn-success">Update <i class="bi bi-pencil"></i></a>
+                        <a href="./?page=user/delete&id=<?php echo $row -> user_id ?>" class="btn btn-danger btn-delete">Delete <i class="bi bi-trash"></i></a>
                     </td>
                 </tr>
             <?php
@@ -46,3 +46,15 @@
 
     </table>
 </div>
+
+<script>
+
+
+    $('.btn-delete').click(function(e){
+        e.preventDefault();
+        alert('click');
+    })
+
+
+
+</script>
