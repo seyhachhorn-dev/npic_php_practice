@@ -32,8 +32,8 @@
 
                     <td><?php echo $row->name ?></td>
                     <td>
-                        <a href="./?page=user/update&id=<?php echo $row -> user_id ?>" class="btn btn-success">Update <i class="bi bi-pencil"></i></a>
-                        <a href="./?page=user/delete&id=<?php echo $row -> user_id ?>" class="btn btn-danger btn-delete">Delete <i class="bi bi-trash"></i></a>
+                        <a href="./?page=user/update&id=<?php echo $row->user_id ?>" class="btn btn-success">Update <i class="bi bi-pencil"></i></a>
+                        <a href="./?page=user/delete&id=<?php echo $row->user_id ?>" class="btn btn-danger btn-delete">Delete <i class="bi bi-trash"></i></a>
                     </td>
                 </tr>
             <?php
@@ -48,13 +48,26 @@
 </div>
 
 <script>
+    $(document).ready(
+        $('.btn-delete').click(function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "rgb(147, 147, 147)",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                 window.location.href = $(this).attr('href')
 
-
-    $('.btn-delete').click(function(e){
-        e.preventDefault();
-        alert('click');
-    })
-
-
-
+                    // title: "Deleted!",
+                    // text: "Your file has been deleted.",
+                    // icon: "success"
+                };
+            });
+        })
+    )
 </script>
